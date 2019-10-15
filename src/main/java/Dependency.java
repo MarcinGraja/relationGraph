@@ -3,6 +3,7 @@ public class Dependency implements Printable {
     private NodeFile target;    // File to witch dependency refers
     private int amount;         // Number of dependencies found
 
+    //Constructor
     public Dependency(NodeFile source, NodeFile target, int amount) {
         this.source = source;
         this.target = target;

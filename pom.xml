@@ -8,6 +8,7 @@
     <artifactId>relationGraph</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <!-- JGrapht -->
     <dependencies>
         <dependency>
             <groupId>org.jgrapht</groupId>
@@ -22,6 +23,7 @@
         </dependency>
     </dependencies>
 
+    <!-- To ensure we're running 11th language level -->
     <build>
         <plugins>
             <plugin>

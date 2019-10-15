@@ -7,11 +7,14 @@ import org.jgrapht.graph.SimpleDirectedWeightedGraph;
 import java.util.List;
 
 public class GraphHandler {
-    private List<Dependency> edges;
-    private List<NodeFile> nodes;
+    private List<Dependency> edges; //Dependencys are graph's edges
+    private List<NodeFile> nodes;   //Source Files are graph's nodes
+                                    //Result Graph is directed and weighted for good data representation
     private Graph<NodeFile, Dependency> resultGraph = new SimpleDirectedWeightedGraph<>(Dependency.class);
+                                    //Formatted version of graph that can be put in buffered image
     private JGraphXAdapter<NodeFile, Dependency> printableGraph;
 
+    //This method builds graph from lists of edges and nodes and adds weights
     public void build(List<Dependency> edgeList, List<NodeFile> nodeList) {
         this.edges = edgeList;
         this.nodes = nodeList;
@@ -25,6 +28,7 @@ public class GraphHandler {
         }
     }
 
+    //This method formats graph so it can be put into buffered image
     public void makePrintable(){
         this.printableGraph=new JGraphXAdapter<>(this.resultGraph);
         mxIGraphLayout layout = new mxHierarchicalLayout(this.printableGraph);
