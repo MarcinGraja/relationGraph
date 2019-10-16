@@ -1,3 +1,5 @@
+package Graph;
+
 public class RelationGraphMain {
     public static void main(String[] args) {
         NodeFile f1 = new NodeFile("file1");
