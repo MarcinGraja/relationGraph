@@ -21,7 +21,9 @@ public class ObjectInformation {
     public int getUses() {
         return uses;
     }
-
+    public String toString(){
+        return "class: " + getClassName() + " object: " + getObjectName() + " uses: " + getUses();
+    }
     public void incrementUses() {
         this.uses++;
     }

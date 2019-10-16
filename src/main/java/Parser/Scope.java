@@ -1,42 +1,42 @@
 package Parser;
 
-import java.io.FileInputStream;
 import java.util.HashSet;
 import java.util.LinkedList;
-import java.util.Scanner;
 import java.util.regex.Pattern;
 
 public class Scope {
-    LinkedList<ObjectInformation> objects;
-    public int createScope(String input, int position, HashSet<String> consideredClasses){
-        int difference = 1;
-        int startIndex = input.indexOf("{", position+1);
-        int endIndex = input.indexOf("}", position);
+    private LinkedList<ObjectInformation> objects = new LinkedList<>();
+    public void createScope(String input, HashSet<String> consideredClasses){
+        //int difference = 1;
+        //int startIndex = input.indexOf("{", position+1);
+        //int endIndex = input.indexOf("}", position);
 
-        while (difference != 0){
-            while (startIndex < endIndex){
+        /*while (difference != 0){
+            if (startIndex != -1 && startIndex < endIndex){
                 startIndex = input.indexOf("{", startIndex + 1);
                 difference++;
             }
-            while (endIndex < startIndex && input.indexOf("}", endIndex+1) < startIndex){
-                endIndex = input.indexOf("}", endIndex+1);
+            if (endIndex != -1 && endIndex < startIndex && input.indexOf("}", endIndex+1) < startIndex){
+                endIndex = input.indexOf("}", endIndex + 1);
                 difference--;
             }
-        }
+        }*/
+        //position = endIndex;
         String[] scopeString;
-        scopeString = input.substring(position, endIndex).split(" ");
+        scopeString = input.split(" ");
         for (int i = 0; i < scopeString.length; i++){
             if (consideredClasses.contains(scopeString[i])){
                 objects.addLast(new ObjectInformation(scopeString[i], scopeString[i+1]));
             }
         }
-        for (int i = 0; i < scopeString.length; i++){
-            for (int j = 0; j < objects.size(); j++){
-                //if (scopeString[i].matches(Pattern.compile(objects.get(j).getClassName())));
+        for (String s : scopeString) {
+            for (ObjectInformation object : objects) {
+                System.out.println(object);
+                if (s.matches(object.getObjectName() + "(\\..)?")) {
+                    object.incrementUses();
+                }
             }
         }
-        return position;
-    }
-    public Scope(){
+       // return position;
     }
 }
