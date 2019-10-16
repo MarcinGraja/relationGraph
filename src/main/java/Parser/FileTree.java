@@ -8,15 +8,16 @@ import java.util.regex.Pattern;
 
 public class FileTree {
     LinkedList<Scope> scopes;
-    FileTree(File input) throws FileNotFoundException {
+
+    FileTree(File input, String[] classes) throws FileNotFoundException {
         Scanner scanner = new Scanner(input);
-        String line;
+        StringBuilder stringBuilder = new StringBuilder();
         while (scanner.hasNextLine()){
-            line = scanner.nextLine();
-            if (line.contains("{"))
-            {
-                scopes.addLast(new Scope(scanner));
-            }
+            stringBuilder.append(scanner.nextLine());
         }
+        String fileString = stringBuilder.toString();
+        int currentPosition = fileString.indexOf("{");
+
     }
+
 }
