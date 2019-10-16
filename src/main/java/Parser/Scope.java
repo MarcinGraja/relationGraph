@@ -1,8 +1,8 @@
 package Parser;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
-import java.util.regex.Pattern;
 
 public class Scope {
     private LinkedList<ObjectInformation> objects = new LinkedList<>();
@@ -38,5 +38,21 @@ public class Scope {
             }
         }
        // return position;
+    }
+    public HashMap<String,Integer> funkcja()
+    {
+        HashMap<String,Integer> temp=new HashMap<>();
+        for(ObjectInformation object:objects)
+        {
+            if(temp.containsKey(object.getClassName()))
+            {
+                temp.put(object.getClassName(),object.getUses()+temp.get(object.getClassName()));
+            }
+            else
+            {
+                temp.put(object.getClassName(),object.getUses());
+            }
+        }
+        return temp;
     }
 }
