@@ -1,6 +1,8 @@
+package Graph;
+
 public class Dependency implements Printable {
-    private NodeFile source;    // File from witch dependency was found
-    private NodeFile target;    // File to witch dependency refers
+    private NodeFile source;    // File from which dependency was found
+    private NodeFile target;    // File to which dependency refers
     private int amount;         // Number of dependencies found
 
     public Dependency(NodeFile source, NodeFile target, int amount) {

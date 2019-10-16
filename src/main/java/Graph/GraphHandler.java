@@ -1,3 +1,5 @@
+package Graph;
+
 import com.mxgraph.layout.hierarchical.mxHierarchicalLayout;
 import com.mxgraph.layout.mxIGraphLayout;
 import org.jgrapht.Graph;
