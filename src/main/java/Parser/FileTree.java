@@ -23,7 +23,7 @@ public class FileTree {
             stringBuilder.append(scanner.nextLine());
         }
         String fileString = stringBuilder.toString();
-        scope.createScope(fileString, classes.stream().filter(p -> p.equals(input.getName() + ".java")).collect(Collectors.toCollection(HashSet::new)));
+        scope.createScope(fileString, classes.stream().filter(p -> !input.getName().equals(p + ".java")).collect(Collectors.toCollection(HashSet::new)));
         //int currentPosition = fileString.indexOf("{");
         //while (currentPosition!=-1){
            // scopes.addLast(new Scope());
@@ -31,13 +31,17 @@ public class FileTree {
          //           scopes.getLast().createScope(fileString, classes);
        // }
     }
-    Dependency[] getDependencies()
+    public Dependency[] getDependencies()
     {
         HashMap<String,Integer> nazwa=scope.funkcja();
         LinkedList<Dependency> dependencies=new LinkedList<>();
         for(String key : nazwa.keySet()){
             dependencies.add(new Dependency(new NodeFile(fileName), new NodeFile(key), nazwa.get(key)));
         }
-        return (Dependency[]) dependencies.toArray();
+        return dependencies.toArray(new Dependency[0]);
+    }
+
+    public String getFileName() {
+        return fileName;
     }
 }

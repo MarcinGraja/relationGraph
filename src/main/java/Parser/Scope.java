@@ -1,12 +1,13 @@
 package Parser;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 
 public class Scope {
     private LinkedList<ObjectInformation> objects = new LinkedList<>();
-    public void createScope(String input, HashSet<String> consideredClasses){
+    void createScope(String input, HashSet<String> consideredClasses){
         //int difference = 1;
         //int startIndex = input.indexOf("{", position+1);
         //int endIndex = input.indexOf("}", position);
@@ -23,7 +24,10 @@ public class Scope {
         }*/
         //position = endIndex;
         String[] scopeString;
-        scopeString = input.split(" ");
+        scopeString =Arrays.stream(
+                input.split("[ ;<>=\\-+/*\\[\\]:]"))
+                .filter(s -> !s.equals(""))
+                .toArray(String[]::new);
         for (int i = 0; i < scopeString.length; i++){
             if (consideredClasses.contains(scopeString[i])){
                 objects.addLast(new ObjectInformation(scopeString[i], scopeString[i+1]));
@@ -31,7 +35,7 @@ public class Scope {
         }
         for (String s : scopeString) {
             for (ObjectInformation object : objects) {
-                System.out.println(object);
+                //System.out.println(object);
                 if (s.matches(object.getObjectName() + "(\\..)?")) {
                     object.incrementUses();
                 }
@@ -39,19 +43,17 @@ public class Scope {
         }
        // return position;
     }
-    public HashMap<String,Integer> funkcja()
+    HashMap<String,Integer> funkcja()
     {
         HashMap<String,Integer> temp=new HashMap<>();
-        for(ObjectInformation object:objects)
-        {
-            if(temp.containsKey(object.getClassName()))
-            {
+        for(ObjectInformation object:objects) {
+            if(temp.containsKey(object.getClassName())) {
                 temp.put(object.getClassName(),object.getUses()+temp.get(object.getClassName()));
             }
-            else
-            {
+            else {
                 temp.put(object.getClassName(),object.getUses());
             }
+            System.err.println(object.getClassName() + " " + temp.get(object.getClassName()) + '\n');
         }
         return temp;
     }
