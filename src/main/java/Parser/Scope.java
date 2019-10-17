@@ -8,30 +8,16 @@ import java.util.LinkedList;
 public class Scope {
     private LinkedList<ObjectInformation> objects = new LinkedList<>();
     void createScope(String input, HashSet<String> consideredClasses){
-        //int difference = 1;
-        //int startIndex = input.indexOf("{", position+1);
-        //int endIndex = input.indexOf("}", position);
-
-        /*while (difference != 0){
-            if (startIndex != -1 && startIndex < endIndex){
-                startIndex = input.indexOf("{", startIndex + 1);
-                difference++;
-            }
-            if (endIndex != -1 && endIndex < startIndex && input.indexOf("}", endIndex+1) < startIndex){
-                endIndex = input.indexOf("}", endIndex + 1);
-                difference--;
-            }
-        }*/
-        //position = endIndex;
         String[] scopeString;
         scopeString =Arrays.stream(
                 input.split("[ ;<>=\\-+/*\\[\\]:]"))
                 .filter(s -> !s.equals(""))
                 .toArray(String[]::new);
         for (int i = 0; i < scopeString.length; i++){
-            if (consideredClasses.contains(scopeString[i])){
-                objects.addLast(new ObjectInformation(scopeString[i], scopeString[i+1]));
-            }
+            for (String s : consideredClasses)
+                if (scopeString[i].contains(s)){
+                    objects.addLast(new ObjectInformation(scopeString[i], scopeString[i+1]));
+                }
         }
         for (String s : scopeString) {
             for (ObjectInformation object : objects) {
@@ -41,7 +27,6 @@ public class Scope {
                 }
             }
         }
-       // return position;
     }
     HashMap<String,Integer> funkcja()
     {
