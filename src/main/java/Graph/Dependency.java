@@ -5,6 +5,7 @@ public class Dependency implements Printable {
     private NodeFile target;    // File to which dependency refers
     private int amount;         // Number of dependencies found
 
+    //Constructor
     public Dependency(NodeFile source, NodeFile target, int amount) {
         this.source = source;
         this.target = target;

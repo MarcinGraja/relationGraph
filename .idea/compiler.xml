@@ -10,7 +10,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="relationGraph" target="11.0.2" />
+      <module name="relationGraph" target="13.0.1" />
       <module name="test" target="1.5" />
     </bytecodeTargetLevel>
   </component>
