@@ -1,6 +1,6 @@
 package Graph;
 
-public class NodeFile implements Printable {
+public class NodeFile  {
     private String name; // Name of the file combined with it's type ex. "class File"
 
     //Constructor
@@ -8,7 +8,6 @@ public class NodeFile implements Printable {
         this.name = name;
     }
 
-    @Override
     public void print() {
         System.out.println(name);
     }

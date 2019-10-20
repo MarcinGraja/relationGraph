@@ -1,5 +1,5 @@
-module relationGraph {
+/*module relationGraph {
     requires  javafx.controls;
     requires  javafx.fxml;
 
-}
+}*/

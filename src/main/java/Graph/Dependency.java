@@ -1,6 +1,6 @@
 package Graph;
 
-public class Dependency implements Printable {
+public class Dependency {
     private NodeFile source;    // File from which dependency was found
     private NodeFile target;    // File to which dependency refers
     private int amount;         // Number of dependencies found
@@ -12,7 +12,6 @@ public class Dependency implements Printable {
         this.amount = amount;
     }
 
-    @Override
     public void print() {
         System.out.println(source.getName() + " --" + amount + "-> " + target.getName());
     }
