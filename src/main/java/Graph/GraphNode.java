@@ -1,15 +1,21 @@
 package Graph;
 
-public class NodeFile  {
-    private String name; // Name of the file combined with it's type ex. "class File"
+public class GraphNode implements Printable {
+    private String name; // Name of the node
 
     //Constructor
-    public NodeFile(String name) {
+    public GraphNode(String name) {
         this.name = name;
     }
 
+    @Override
     public void print() {
         System.out.println(name);
+    }
+
+    @Override
+    public String toString(){
+       return name;
     }
 
     public String getName() {

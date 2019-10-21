@@ -1,7 +1,7 @@
 package Parser;
 
-import Graph.Dependency;
-import Graph.NodeFile;
+import Graph.GraphEdge;
+import Graph.GraphNode;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -9,7 +9,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Scanner;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class FileTree {
@@ -31,14 +30,14 @@ public class FileTree {
          //           scopes.getLast().createScope(fileString, classes);
        // }
     }
-    public Dependency[] getDependencies()
+    public GraphEdge[] getDependencies()
     {
         HashMap<String,Integer> nazwa=scope.funkcja();
-        LinkedList<Dependency> dependencies=new LinkedList<>();
+        LinkedList<GraphEdge> dependencies=new LinkedList<>();
         for(String key : nazwa.keySet()){
-            dependencies.add(new Dependency(new NodeFile(fileName), new NodeFile(key), nazwa.get(key)));
+            dependencies.add(new GraphEdge(new GraphNode(fileName), new GraphNode(key), nazwa.get(key)));
         }
-        return dependencies.toArray(new Dependency[0]);
+        return dependencies.toArray(new GraphEdge[0]);
     }
 
     public String getFileName() {

@@ -1,4 +1,4 @@
-import javafx.application.Application;
+/*import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
@@ -25,4 +25,4 @@ public class FxClass extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
     }
-}
+}*/
