@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 
 public class FileTree {
     private Scope scope = new Scope();
-    String fileName;
+    private String fileName;
     public FileTree(File input, HashSet<String> classes) throws FileNotFoundException {
         fileName=input.getName();
         Scanner scanner = new Scanner(input);

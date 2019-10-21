@@ -6,8 +6,13 @@ import javafx.scene.image.ImageView;
 import org.jgrapht.Graph;
 import org.jgrapht.ext.JGraphXAdapter;
 import org.jgrapht.graph.SimpleDirectedWeightedGraph;
-
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
+import com.mxgraph.util.mxCellRenderer;
 
 public class GraphHandler {
     private List<Dependency> edges; //Dependencys are graph's edges
@@ -41,6 +46,13 @@ public class GraphHandler {
         //Żeby wyświetlić:
         //        BufferedImage image = mxCellRenderer.createBufferedImage(printableGraph, null, 1, Color.WHITE, true, null);
         //      imageView.setImage(SwingFXUtils.toFXImage(image, null));
+    }
+
+    public void givenAdaptedGraph_whenWriteBufferedImage_thenFileShouldExist() throws IOException{
+        BufferedImage image=mxCellRenderer.createBufferedImage(printableGraph,null,2, Color.WHITE,true,null);
+        File imageFile=new File("src/test/resources/graph.png");
+        ImageIO.write(image,"PNG",imageFile);
+
     }
 
     public List<Dependency> getEdges() {
