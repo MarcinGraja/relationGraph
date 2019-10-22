@@ -5,17 +5,54 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 
+@SuppressWarnings("ALL")
 public class Scope {
     private LinkedList<ObjectInformation> objects = new LinkedList<>();
-    void createScope(String input, HashSet<String> consideredClasses){
-        String[] scopeString;
-        scopeString =Arrays.stream(
-                input.split("[ ;<>=\\-+/*\\[\\]:]"))
+    private static class LookAround{
+        static String generate(String string){
+            return "(?<=" + string + ")|(?=" + string + ")";
+        }
+    }
+    String[] split(String input){
+        String[] tokens;
+        input = input.replace("(\\/{2}.\n)" +    //match // + anyString + newline
+                        "|\\/\\*.s?\\*\\/"    //match /* + anyString + */
+                , "");
+        String includedTokenDelimiters =
+                "^(\".*\")" +  // dont match between quotation marks
+                        "[;=\\-+/*\\[\\]:\\{\\}]" +   // match any of ;=\-+/*\[\]{}:
+                        "|(<\\S+>)" +   // OR match <anyString>
+                        "|(\\(\\S+\\))" +   // OR match (anyString)
+                        "|(\\[\\S+\\])";    // OR match [anyString]
+        String excludedTokenDelimiters = "\\s+"; //one or more whitespace characters
+        tokens =Arrays.stream(
+                input.split(excludedTokenDelimiters + "|" + LookAround.generate(includedTokenDelimiters)))
                 .filter(s -> !s.equals(""))
                 .toArray(String[]::new);
+        return tokens;
+    }
+    void createScope(String input, HashSet<String> consideredClasses){
+        String[] scopeString;
+        input = input.replace("(\\/{2}.\n)" +    //match // + anyString + newline
+                "|\\/\\*.s?\\*\\/"    //match /* + anyString + */
+                , "");
+        String includedTokenDelimiters =
+                "^(\".*\")" +  // dont match between quotation marks
+                "[;=\\-+/*\\[\\]:\\{\\}]" +   // match any of ;=\-+/*\[\]{}:
+                "|(<\\S+>)" +   // OR match <anyString>
+                "|(\\(\\S+\\))" +   // OR match (anyString)
+                "|(\\[\\S+\\])";    // OR match [anyString]
+        String excludedTokenDelimiters = "\\s+"; //one or more whitespace characters
+        scopeString =Arrays.stream(
+                input.split(excludedTokenDelimiters + "|" + LookAround.generate(includedTokenDelimiters)))
+                        .filter(s -> !s.equals(""))
+                        .toArray(String[]::new);
+        for (String s : scopeString){
+            System.err.println(s);
+        }
         for (int i = 0; i < scopeString.length; i++){
             for (String s : consideredClasses)
-                if (scopeString[i].contains(s)){
+                if (scopeString[i].equals(s)){
                     objects.addLast(new ObjectInformation(scopeString[i], scopeString[i+1]));
                 }
         }

@@ -38,6 +38,10 @@ public class FileTree {
         for(String key : nazwa.keySet()){
             dependencies.add(new Dependency(new NodeFile(fileName), new NodeFile(key), nazwa.get(key)));
         }
+        for (Dependency dependency: dependencies){
+            dependency.print();
+        }
+        System.err.println("printed dependencies I hope; FileTree.getDependencies");
         return dependencies.toArray(new Dependency[0]);
     }
 

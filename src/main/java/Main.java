@@ -14,11 +14,11 @@ public class Main {
         JFileChooser chose = new JFileChooser();
         chose.setFileSelectionMode(JFileChooser.FILES_ONLY);
         chose.setMultiSelectionEnabled(true);
-        chose.setCurrentDirectory(new File(System.getProperty("user.dir")));
+        chose.setCurrentDirectory(new File(System.getProperty("user.dir")+"\\src\\main\\java\\Parser"));
+
         JFrame jframe = new JFrame();
 
         int r = chose.showOpenDialog(jframe);
-        chose.hide();
         if (r == JFileChooser.APPROVE_OPTION) {
             File[] files = chose.getSelectedFiles();
             HashSet<String> classList= new HashSet<>();
@@ -28,6 +28,7 @@ public class Main {
                 classList.add(files[i].getName().split("\\.")[0]);
 
             }
+            System.err.println("created list of classes");
             for(int i = 0; i < files.length; i++) {
                 System.out.println(i);
                 try {
@@ -36,13 +37,14 @@ public class Main {
                     e.printStackTrace();
                 }
             }
+            System.err.println("created trees[]");
             for (FileTree tree : trees){
                 System.out.println(tree.getFileName());
                 for (Dependency dependency : tree.getDependencies()){
                     dependency.print();
-                    System.out.println("co jest kurwa");
                 }
             }
+            System.err.println("printed dependencies");
         }
 
     }
