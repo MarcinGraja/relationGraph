@@ -20,10 +20,10 @@ public class Scope {
                 , "");
         String includedTokenDelimiters =
                 "^(\".*\")" +  // dont match between quotation marks
-                        "[;=\\-+/*\\[\\]:\\{\\}]" +   // match any of ;=\-+/*\[\]{}:
-                        "|(<\\S+>)" +   // OR match <anyString>
-                        "|(\\(\\S+\\))" +   // OR match (anyString)
-                        "|(\\[\\S+\\])";    // OR match [anyString]
+                "[;=\\-+/*\\[\\]:\\{\\}]" +   // match any of ;=\-+/*\[\]{}:
+                "|(<\\S+>)" +   // OR match <anyString>
+                "|(\\(\\S+\\))" +   // OR match (anyString)
+                "|(\\[\\S+\\])";    // OR match [anyString]
         String excludedTokenDelimiters = "\\s+"; //one or more whitespace characters
         tokens =Arrays.stream(
                 input.split(excludedTokenDelimiters + "|" + LookAround.generate(includedTokenDelimiters)))
@@ -33,8 +33,8 @@ public class Scope {
     }
     void createScope(String input, HashSet<String> consideredClasses){
         String[] scopeString;
-        input = input.replace("(\\/{2}.\n)" +    //match // + anyString + newline
-                "|\\/\\*.s?\\*\\/"    //match /* + anyString + */
+        input = input.replace("(/{2}.)|/\\*.?\\*/" +    //match // + anyString + newline
+                ""    //match /* + anyString + */
                 , "");
         String includedTokenDelimiters =
                 "^(\".*\")" +  // dont match between quotation marks

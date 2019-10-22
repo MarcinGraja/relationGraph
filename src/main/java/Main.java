@@ -26,7 +26,6 @@ public class Main {
             for(int i=0;i<files.length;i++){
                 System.out.println(files[i].getName().split("\\.")[0]);
                 classList.add(files[i].getName().split("\\.")[0]);
-
             }
             System.err.println("created list of classes");
             for(int i = 0; i < files.length; i++) {
@@ -37,14 +36,12 @@ public class Main {
                     e.printStackTrace();
                 }
             }
-            System.err.println("created trees[]");
             for (FileTree tree : trees){
                 System.out.println(tree.getFileName());
                 for (Dependency dependency : tree.getDependencies()){
                     dependency.print();
                 }
             }
-            System.err.println("printed dependencies");
         }
 
     }

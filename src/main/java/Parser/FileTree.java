@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 public class FileTree {
     private Scope scope = new Scope();
     String fileName;
+    String fileContent;
     public FileTree(File input, HashSet<String> classes) throws FileNotFoundException {
         fileName=input.getName();
         Scanner scanner = new Scanner(input);
@@ -22,14 +23,8 @@ public class FileTree {
         while (scanner.hasNextLine()){
             stringBuilder.append(scanner.nextLine());
         }
-        String fileString = stringBuilder.toString();
-        scope.createScope(fileString, classes.stream().filter(p -> !input.getName().equals(p + ".java")).collect(Collectors.toCollection(HashSet::new)));
-        //int currentPosition = fileString.indexOf("{");
-        //while (currentPosition!=-1){
-           // scopes.addLast(new Scope());
-          //  currentPosition = fileString.indexOf("{",
-         //           scopes.getLast().createScope(fileString, classes);
-       // }
+        fileContent = stringBuilder.toString();
+        scope.createScope(fileContent, classes.stream().filter(p -> !input.getName().equals(p + ".java")).collect(Collectors.toCollection(HashSet::new)));
     }
     public Dependency[] getDependencies()
     {
