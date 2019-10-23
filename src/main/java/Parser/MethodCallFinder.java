@@ -40,7 +40,7 @@ public class MethodCallFinder {
         System.err.println(methods.get(0).getTags());
         System.err.println(methods.get(0).getDeclaringClass());
         for (JavaMethod method: methods){
-            map.put(method.getCallSignature(), new HashMap<>());
+            map.put(method.getCallSignature().replaceFirst("\\(.*\\)","()"), new HashMap<>());
             for (String s: methodNames){
                 Integer value = 0;
                 String matchedString = s.replaceFirst("\\(.*\\)","\\\\\\(.*\\\\\\)");
@@ -49,7 +49,8 @@ public class MethodCallFinder {
                 while (matcher.find()){
                     value++;
                 }
-                map.get(method.getCallSignature()).put(s, value);
+                String toPut = s.replaceFirst("\\(.*\\)","()");
+                map.get(method.getCallSignature().replaceFirst("\\(.*\\)","()")).put(toPut, value);
             }
         }
         ArrayList<GraphEdge> arr = new ArrayList<>();

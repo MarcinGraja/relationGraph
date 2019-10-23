@@ -1,12 +1,9 @@
+import Graph.GraphHandler;
+import Parser.MethodCallFinder;
+
 import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
-
-import Graph.GraphEdge;
-import Graph.GraphHandler;
-import Graph.GraphNode;
-import Parser.MethodCallFinder;
 
 public class Main {
 
