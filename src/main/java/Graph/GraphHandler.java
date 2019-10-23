@@ -46,7 +46,7 @@ public class GraphHandler {
         layout.execute(this.printableGraph.getDefaultParent());
     }
 
-    public void exportToPNG() throws IOException {
+    public void exportToPNG(String fileName) throws IOException {
         BufferedImage image = mxCellRenderer.createBufferedImage(printableGraph, null, 2, Color.WHITE, true, null);
         File dir = new File("src/main/resources/");
         if (!dir.exists()){

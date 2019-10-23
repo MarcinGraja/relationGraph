@@ -18,7 +18,7 @@ public class TmpMain {
         methodGraph.build(edges);
         methodGraph.makePrintable();
         try {
-            methodGraph.exportToPNG();
+            methodGraph.exportToPNG("testGraph1");
         } catch (IOException e) {
             e.printStackTrace();
         }
