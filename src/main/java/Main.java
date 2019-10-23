@@ -11,14 +11,13 @@ public class Main {
         JFileChooser chose = new JFileChooser();
         chose.setFileSelectionMode(JFileChooser.FILES_ONLY);
         chose.setMultiSelectionEnabled(true);
-        chose.setCurrentDirectory(new File(System.getProperty("user.dir")+"\\src\\main\\java\\Parser"));
+        chose.setCurrentDirectory(new File(System.getProperty("user.dir")));
 
         JFrame jframe = new JFrame();
 
         int r = chose.showOpenDialog(jframe);
         if (r == JFileChooser.APPROVE_OPTION) {
-            File[] files = chose.getSelectedFiles();
-        }
 
+        }
     }
 }

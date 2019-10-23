@@ -8,6 +8,7 @@
     <artifactId>relationGraph</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <!-- JGrapht -->
     <dependencies>
         <dependency>
             <groupId>org.jgrapht</groupId>
@@ -20,6 +21,33 @@
             <artifactId>jgrapht-ext</artifactId>
             <version>1.0.1</version>
         </dependency>
+        <dependency>
+            <groupId>org.jgrapht</groupId>
+            <artifactId>jgrapht-ext</artifactId>
+            <version>1.0.1</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.openjfx/javafx-controls -->
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-controls</artifactId>
+            <version>13-ea+1</version>
+        </dependency>
+
+
+        <!-- https://mvnrepository.com/artifact/org.openjfx/javafx-fxml -->
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-fxml</artifactId>
+            <version>13-ea+1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>RELEASE</version>
+            <scope>compile</scope>
+        </dependency>
+
+
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
@@ -39,6 +67,7 @@
 
     </dependencies>
 
+    <!-- To ensure we're running 11th language level -->
     <build>
         <plugins>
             <plugin>
@@ -46,6 +75,14 @@
                 <configuration>
                     <source>11.0.2</source>
                     <target>11.0.2</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.openjfx</groupId>
+                <artifactId>javafx-maven-plugin</artifactId>
+                <version>0.0.3</version>
+                <configuration>
+                    <mainClass>HelloFX</mainClass>
                 </configuration>
             </plugin>
         </plugins>
