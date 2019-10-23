@@ -1,5 +1,7 @@
 package Parser;
 
+import Graph.GraphEdge;
+import Graph.GraphNode;
 import com.thoughtworks.qdox.JavaProjectBuilder;
 import com.thoughtworks.qdox.model.JavaClass;
 import com.thoughtworks.qdox.model.JavaMethod;
@@ -25,13 +27,18 @@ public class MethodCallFinder {
         }
         return array;
     }
-    public HashMap<String, HashMap<String, Integer>> getDependencies(){
+    public ArrayList<GraphEdge> getDependencies(){
         HashMap<String, HashMap<String, Integer>> map = new HashMap<>();
         ArrayList<JavaMethod> methods = getMethods();
         ArrayList<String> methodNames= new ArrayList<>();
         for(JavaMethod method: methods){
             methodNames.add(method.getCallSignature());
         }
+        System.err.println(methods.get(0).getDeclarationSignature(true));
+        System.err.println(methods.get(0).getDeclarationSignature(false));
+        System.err.println(methods.get(0).getCallSignature());
+        System.err.println(methods.get(0).getTags());
+        System.err.println(methods.get(0).getDeclaringClass());
         for (JavaMethod method: methods){
             map.put(method.getCallSignature(), new HashMap<>());
             for (String s: methodNames){
@@ -45,6 +52,14 @@ public class MethodCallFinder {
                 map.get(method.getCallSignature()).put(s, value);
             }
         }
-        return map;
+        ArrayList<GraphEdge> arr = new ArrayList<>();
+        for (String source: map.keySet()){
+            GraphNode gSource= new GraphNode(source);
+            for (String target: map.get(source).keySet()){
+                GraphNode gTarget = new GraphNode(target);
+                arr.add(new GraphEdge(gSource, gTarget, map.get(source).get(target)));
+            }
+        }
+        return arr;
     }
 }

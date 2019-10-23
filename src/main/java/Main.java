@@ -1,9 +1,11 @@
 import javax.swing.*;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.HashSet;
+import java.io.IOException;
+import java.util.HashMap;
 
-import Graph.Dependency;
+import Graph.GraphEdge;
+import Graph.GraphHandler;
+import Graph.GraphNode;
 import Parser.MethodCallFinder;
 
 public class Main {
@@ -23,7 +25,14 @@ public class Main {
             files = chose.getSelectedFiles();
             finder.setBuilder(files);
         }
-        finder.getDependencies();
+        GraphHandler methodGraph = new GraphHandler();
+        methodGraph.build(finder.getDependencies());
+        methodGraph.makePrintable();
+        try {
+            methodGraph.exportToPNG();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 }

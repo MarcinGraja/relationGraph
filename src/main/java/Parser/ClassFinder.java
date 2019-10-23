@@ -1,7 +1,7 @@
 package Parser;
 
-import Graph.Dependency;
-import Graph.NodeFile;
+import Graph.GraphEdge;
+import Graph.GraphNode;
 import com.thoughtworks.qdox.JavaProjectBuilder;
 import com.thoughtworks.qdox.model.JavaSource;
 
@@ -22,9 +22,8 @@ public class ClassFinder {
             tmp.add(src.getClasses().get(i).getName());
         }
         return tmp;
-
     }
-    public static Dependency ClassDependency(File source, File target)
+    public static GraphEdge ClassDependency(File source, File target)
     {
         int counter=0;
         JavaProjectBuilder builder=new JavaProjectBuilder();
@@ -53,6 +52,6 @@ public class ClassFinder {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-    return new Dependency(new NodeFile(source.getName()),new NodeFile(target.getName()),counter);
+    return new GraphEdge(new GraphNode(source.getName()),new GraphNode(target.getName()),counter);
     }
 }

@@ -15,7 +15,7 @@ public class TmpMain {
         List<GraphNode> nodes = Arrays.asList(n1,n2);
         List<GraphEdge> edges = Arrays.asList(edge);
 
-        methodGraph.build(edges,nodes);
+        methodGraph.build(edges);
         methodGraph.makePrintable();
         try {
             methodGraph.exportToPNG();

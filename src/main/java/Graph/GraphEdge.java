@@ -45,4 +45,5 @@ public class GraphEdge implements Printable {
     public void setWeight(int weight) {
         this.weight = weight;
     }
+
 }
