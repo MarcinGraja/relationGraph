@@ -26,7 +26,7 @@ public class Main {
         methodGraph.build(finder.getDependencies());
         methodGraph.makePrintable();
         try {
-            methodGraph.exportToPNG("test");
+            methodGraph.exportToPNG("MethodsGraph");
         } catch (IOException e) {
             e.printStackTrace();
         }
