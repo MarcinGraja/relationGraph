@@ -12,10 +12,7 @@ public class Main {
         chose.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
         chose.setMultiSelectionEnabled(true);
         chose.setCurrentDirectory(new File(System.getProperty("user.dir")));
-
-        JFrame jframe = new JFrame();
-
-        int r = chose.showOpenDialog(jframe);
+        int r = chose.showOpenDialog(null);
         File[] files;
         MethodCallFinder finder= new MethodCallFinder();
         if (r == JFileChooser.APPROVE_OPTION) {
