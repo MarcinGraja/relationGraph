@@ -52,7 +52,7 @@ public class GraphHandler {
         if (!dir.exists()){
             dir.mkdirs();
         }
-        File imageFile = new File("src/main/resources/graph.png");
+        File imageFile = new File("src/main/resources/"+fileName+".png");
         imageFile.createNewFile();
         ImageIO.write(image, "PNG", imageFile);
         assertTrue(imageFile.exists());
