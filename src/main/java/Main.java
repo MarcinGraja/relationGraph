@@ -18,27 +18,6 @@ public class Main {
         int r = chose.showOpenDialog(jframe);
         if (r == JFileChooser.APPROVE_OPTION) {
             File[] files = chose.getSelectedFiles();
-            HashSet<String> classList= new HashSet<>();
-            FileTree[] trees=new FileTree[files.length];
-            for(int i=0;i<files.length;i++){
-                System.out.println(files[i].getName().split("\\.")[0]);
-                classList.add(files[i].getName().split("\\.")[0]);
-            }
-            System.err.println("created list of classes");
-            for(int i = 0; i < files.length; i++) {
-                System.out.println(i);
-                try {
-                    trees[i]=new FileTree(files[i], classList);
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
-            }
-            for (FileTree tree : trees){
-                System.out.println(tree.getFileName());
-                for (Dependency dependency : tree.getDependencies()){
-                    dependency.print();
-                }
-            }
         }
 
     }
