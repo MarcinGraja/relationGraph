@@ -15,12 +15,6 @@
             <artifactId>jgrapht-core</artifactId>
             <version>1.3.0</version>
         </dependency>
-
-        <dependency>
-            <groupId>org.jgrapht</groupId>
-            <artifactId>jgrapht-ext</artifactId>
-            <version>1.0.1</version>
-        </dependency>
         <dependency>
             <groupId>org.jgrapht</groupId>
             <artifactId>jgrapht-ext</artifactId>
@@ -46,23 +40,11 @@
             <version>RELEASE</version>
             <scope>compile</scope>
         </dependency>
-
-
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-controls</artifactId>
-            <version>11</version>
-        </dependency>
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-fxml</artifactId>
-            <version>11</version>
-        </dependency>
         <!-- https://mvnrepository.com/artifact/qdox/qdox -->
         <dependency>
-            <groupId>qdox</groupId>
+            <groupId>com.thoughtworks.qdox</groupId>
             <artifactId>qdox</artifactId>
-            <version>1.6.1</version>
+            <version>2.0-M9</version>
         </dependency>
 
     </dependencies>
