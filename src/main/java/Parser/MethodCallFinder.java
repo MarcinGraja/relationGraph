@@ -28,8 +28,6 @@ public class MethodCallFinder {
     public HashMap<String, HashMap<String, Integer>> getDependencies(){
         HashMap<String, HashMap<String, Integer>> map = new HashMap<>();
         ArrayList<JavaMethod> methods = getMethods();
-        System.err.println(methods.get(0).getCallSignature());
-        System.err.println(methods.get(1).getSourceCode());
         ArrayList<String> methodNames= new ArrayList<>();
         for(JavaMethod method: methods){
             methodNames.add(method.getCallSignature());

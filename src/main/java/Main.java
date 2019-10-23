@@ -12,7 +12,7 @@ public class Main {
         JFileChooser chose = new JFileChooser();
         chose.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
         chose.setMultiSelectionEnabled(true);
-        chose.setCurrentDirectory(new File(System.getProperty("user.dir")+"/src/main/java/parser"));
+        chose.setCurrentDirectory(new File(System.getProperty("user.dir")));
 
         JFrame jframe = new JFrame();
 
