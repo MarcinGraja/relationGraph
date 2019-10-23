@@ -30,6 +30,13 @@
             <artifactId>javafx-fxml</artifactId>
             <version>11</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/qdox/qdox -->
+        <dependency>
+            <groupId>qdox</groupId>
+            <artifactId>qdox</artifactId>
+            <version>1.6.1</version>
+        </dependency>
+
     </dependencies>
 
     <build>

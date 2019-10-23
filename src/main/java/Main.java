@@ -1,12 +1,9 @@
-import javax.sound.midi.SysexMessage;
 import javax.swing.*;
-import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.HashSet;
 
 import Graph.Dependency;
-import Parser.FileTree;
 
 public class Main {
 
