@@ -16,6 +16,8 @@ import java.util.List;
 
 import com.mxgraph.util.mxCellRenderer;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 public class GraphHandler {
     private List<GraphEdge> edges;   //Connections are graph's edges
     private List<GraphNode> nodes;
@@ -50,6 +52,7 @@ public class GraphHandler {
         BufferedImage image = mxCellRenderer.createBufferedImage(printableGraph, null, 2, Color.WHITE, true, null);
         File imageFile = new File("src/main/resources/graph.png");
         ImageIO.write(image, "PNG", imageFile);
+        assertTrue(imageFile.exists());
     }
 
     public List<GraphEdge> getEdges() {
