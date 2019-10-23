@@ -1,4 +1,5 @@
 import Graph.GraphHandler;
+import Parser.ClassFinder;
 import Parser.MethodCallFinder;
 
 import javax.swing.*;
@@ -18,15 +19,24 @@ public class Main {
         if (r == JFileChooser.APPROVE_OPTION) {
             files = chose.getSelectedFiles();
             finder.setBuilder(files);
+            GraphHandler classGraph = new GraphHandler();
+            classGraph.build(ClassFinder.getDependencies(files));
+            classGraph.makePrintable();
+            try {
+                classGraph.exportToPNG("Classes.png");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         GraphHandler methodGraph = new GraphHandler();
         methodGraph.build(finder.getDependencies());
         methodGraph.makePrintable();
         try {
-            methodGraph.exportToPNG("MethodsGraph");
+            methodGraph.exportToPNG("Methods.png");
         } catch (IOException e) {
             e.printStackTrace();
         }
+
 
     }
 }

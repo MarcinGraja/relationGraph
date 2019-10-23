@@ -8,11 +8,11 @@ import com.thoughtworks.qdox.model.JavaSource;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Scanner;
 
 public class ClassFinder {
-
     public static LinkedList<String> classList(File file) throws IOException {
         JavaProjectBuilder builder=new JavaProjectBuilder();
         JavaSource src=builder.addSource(file);
@@ -52,6 +52,20 @@ public class ClassFinder {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-    return new GraphEdge(new GraphNode(source.getName()),new GraphNode(target.getName()),counter);
+        return new GraphEdge(new GraphNode(source.getName()),new GraphNode(target.getName()),counter);
+    }
+    public static ArrayList<GraphEdge> getDependencies(File[] files){
+        ArrayList<GraphEdge> tmp = new ArrayList<>();
+        for(File a:files)
+        {
+            for(File b:files)
+            {
+                if(a!=b)
+                {
+                    tmp.add(ClassDependency(a,b));
+                }
+            }
+        }
+        return tmp;
     }
 }
