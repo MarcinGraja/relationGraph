@@ -64,7 +64,7 @@ public class GraphHandler {
 
     public Set<GraphNode> getNodes() {
         return resultGraph.vertexSet();
-    }
+    }//ffggfg
 
     public Graph<GraphNode, GraphEdge> getResultGraph() {
         return resultGraph;
