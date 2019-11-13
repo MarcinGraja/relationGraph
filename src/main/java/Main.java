@@ -10,7 +10,7 @@ import java.io.IOException;
 public class Main {
 
     public static void main(String[] args) {
-        JFileChooser chose = new JFileChooser();
+        JFileChooser chose = new JFileChooser(); //dfsaf
         chose.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
         chose.setMultiSelectionEnabled(true);
         chose.setCurrentDirectory(new File(System.getProperty("user.dir")));
@@ -21,7 +21,7 @@ public class Main {
             files = chose.getSelectedFiles();
             finder.setBuilder(files);
             GraphHandler classGraph = new GraphHandler();
-            classGraph.build(ClassFinder.getDependencies(files));
+            classGraph.build(ClassFinder.getDependencies(files));//dasdasd
             classGraph.makePrintable();
             try {
                 classGraph.exportToPNG("Classes");
