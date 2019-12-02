@@ -4,6 +4,9 @@ import com.mxgraph.layout.hierarchical.mxHierarchicalLayout;
 import com.mxgraph.layout.mxIGraphLayout;
 import com.mxgraph.util.mxCellRenderer;
 import org.jgrapht.Graph;
+import org.jgrapht.ext.DOTExporter;
+import org.jgrapht.ext.ExportException;
+import org.jgrapht.ext.GraphExporter;
 import org.jgrapht.ext.JGraphXAdapter;
 import org.jgrapht.graph.SimpleDirectedWeightedGraph;
 
@@ -12,6 +15,8 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.StringWriter;
+import java.io.Writer;
 import java.util.List;
 import java.util.Set;
 
@@ -32,7 +37,7 @@ public class GraphHandler {
             if (!resultGraph.containsVertex(edge.getTarget())) {
                 resultGraph.addVertex(edge.getTarget());
             }
-            if (edge.getWeight() > 0){
+            if (edge.getWeight() > 0) {
                 if (!edge.getSource().equals(edge.getTarget()))
                     resultGraph.addEdge(edge.getSource(), edge.getTarget(), edge);
             }
@@ -49,13 +54,20 @@ public class GraphHandler {
     public void exportToPNG(String fileName) throws IOException {
         BufferedImage image = mxCellRenderer.createBufferedImage(printableGraph, null, 2, Color.WHITE, true, null);
         File dir = new File("src/main/resources/");
-        if (!dir.exists()){
+        if (!dir.exists()) {
             dir.mkdirs();
         }
-        File imageFile = new File("src/main/resources/"+fileName+".png");
+        File imageFile = new File("src/main/resources/" + fileName);
         imageFile.createNewFile();
         ImageIO.write(image, "PNG", imageFile);
         assertTrue(imageFile.exists());
+    }
+
+    public void exportToDOT(String filename) throws ExportException {
+        GraphExporter<GraphNode, GraphEdge> exporter = new DOTExporter<>();
+        Writer writer = new StringWriter();
+        exporter.exportGraph(resultGraph, writer);
+        System.out.print(writer.toString());
     }
 
     public Set<GraphEdge> getEdges() {

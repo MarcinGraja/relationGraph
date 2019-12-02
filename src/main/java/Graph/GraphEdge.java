@@ -1,6 +1,8 @@
 package Graph;
 
-public class GraphEdge implements Printable {
+import java.io.Serializable;
+
+public class GraphEdge implements Printable, Serializable {
     private GraphNode source;    // Node from which connection was found
     private GraphNode target;    // Node to which connection refers
     private int weight;          // Number of connections found

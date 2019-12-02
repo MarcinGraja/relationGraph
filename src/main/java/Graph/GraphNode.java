@@ -1,8 +1,9 @@
 package Graph;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class GraphNode implements Printable {
+public class GraphNode implements Printable, Serializable {
     private String name; // Name of the node
 
     //Constructor
