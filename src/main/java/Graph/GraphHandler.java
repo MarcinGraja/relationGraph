@@ -13,16 +13,16 @@ import org.jgrapht.graph.SimpleDirectedWeightedGraph;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.io.StringWriter;
-import java.io.Writer;
+import java.io.*;
 import java.util.List;
 import java.util.Set;
+
+import org.jgrapht.io.JSONExporter;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class GraphHandler {
+    final String RESOURCES_PATH = "src/main/resources/";
     //Result Graph is directed and weighted for good data representation
     private Graph<GraphNode, GraphEdge> resultGraph = new SimpleDirectedWeightedGraph<>(GraphEdge.class);
     //Formatted version of graph that can be put in buffered image
@@ -53,21 +53,31 @@ public class GraphHandler {
 
     public void exportToPNG(String fileName) throws IOException {
         BufferedImage image = mxCellRenderer.createBufferedImage(printableGraph, null, 2, Color.WHITE, true, null);
-        File dir = new File("src/main/resources/");
+        File dir = new File(RESOURCES_PATH);
         if (!dir.exists()) {
             dir.mkdirs();
         }
-        File imageFile = new File("src/main/resources/" + fileName);
+        File imageFile = new File(RESOURCES_PATH + fileName);
         imageFile.createNewFile();
         ImageIO.write(image, "PNG", imageFile);
         assertTrue(imageFile.exists());
     }
 
-    public void exportToDOT(String filename) throws ExportException {
-        GraphExporter<GraphNode, GraphEdge> exporter = new DOTExporter<>();
+    public void exportToJSON(String filename) throws org.jgrapht.io.ExportException, IOException {
+        JSONExporter<GraphNode, GraphEdge> exporter = new JSONExporter<>();
         Writer writer = new StringWriter();
         exporter.exportGraph(resultGraph, writer);
-        System.out.print(writer.toString());
+        String text = writer.toString();
+
+        File dir = new File(RESOURCES_PATH);
+        if (!dir.exists()) {
+            dir.mkdirs();
+        }
+
+        FileOutputStream outputStream = new FileOutputStream(RESOURCES_PATH + filename);
+        byte[] textB = text.getBytes();
+        outputStream.write(textB);
+        outputStream.close();
     }
 
     public Set<GraphEdge> getEdges() {

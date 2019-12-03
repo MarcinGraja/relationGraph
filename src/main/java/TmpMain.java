@@ -25,8 +25,8 @@ public class TmpMain {
 //        }
 
         try {
-            methodGraph.exportToDOT("asdfasdf.txt");
-        } catch (ExportException e) {
+            methodGraph.exportToJSON("testJSON.txt");
+        } catch (org.jgrapht.io.ExportException | IOException e) {
             e.printStackTrace();
         }
 
