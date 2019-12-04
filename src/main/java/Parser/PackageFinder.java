@@ -45,7 +45,7 @@ public class PackageFinder
         }
         return counter;
     }
-    public static ArrayList<GraphEdge> ClassDependency(File[] dirs)
+     public static ArrayList<GraphEdge> ClassDependency(File[] dirs)
     {
         ArrayList<GraphEdge> tmp=new ArrayList<>();
 

@@ -1,5 +1,6 @@
 import Graph.GraphHandler;
 import Parser.ClassFinder;
+import Parser.FileParser;
 import Parser.MethodCallFinder;
 import Parser.PackageFinder;
 
@@ -57,6 +58,23 @@ public class Main {
                 PackGraph.exportToJSON("PackagesJSON.json");
                 PackGraph.exportToCSV("PackagesCSV.csv");
             } catch (org.jgrapht.io.ExportException | IOException e) {
+                e.printStackTrace();
+            }
+        }
+        JFileChooser chose2 = new JFileChooser();
+        chose2.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        chose2.setMultiSelectionEnabled(true);
+        chose2.setCurrentDirectory(new File(System.getProperty("user.dir")));
+        int r2 = chose2.showOpenDialog(null);
+        File[] files2;
+        if (r2 == JFileChooser.APPROVE_OPTION) {
+            files2 = chose2.getSelectedFiles();
+            GraphHandler PackGraph = new GraphHandler();
+            PackGraph.build(FileParser.FileDep(files2));
+            PackGraph.makePrintable();
+            try {
+                PackGraph.exportToPNG("Files.png");
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }
