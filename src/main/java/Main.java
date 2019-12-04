@@ -10,7 +10,7 @@ import java.io.IOException;
 public class Main {
 
     public static void main(String[] args) {
-        JFileChooser chose = new JFileChooser(); 
+        JFileChooser chose = new JFileChooser();
         chose.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
         chose.setMultiSelectionEnabled(true);
         chose.setCurrentDirectory(new File(System.getProperty("user.dir")));
@@ -25,8 +25,8 @@ public class Main {
             classGraph.makePrintable();
             try {
                 classGraph.exportToPNG("Classes.png");
-                classGraph.exportToJSON("ClassesJSON.txt");
-                classGraph.exportToCSV("ClassesCSV.txt");
+                classGraph.exportToJSON("ClassesJSON.json");
+                classGraph.exportToCSV("ClassesCSV.csv");
             } catch (org.jgrapht.io.ExportException | IOException e) {
                 e.printStackTrace();
             }
@@ -36,8 +36,8 @@ public class Main {
         methodGraph.makePrintable();
         try {
             methodGraph.exportToPNG("Methods.png");
-            methodGraph.exportToJSON("MethodsJSON.txt");
-            methodGraph.exportToCSV("MethodsCSV.txt");
+            methodGraph.exportToJSON("MethodsJSON.json");
+            methodGraph.exportToCSV("MethodsCSV.csv");
         } catch (org.jgrapht.io.ExportException | IOException e) {
             e.printStackTrace();
         }
@@ -54,8 +54,8 @@ public class Main {
             PackGraph.makePrintable();
             try {
                 PackGraph.exportToPNG("Packages.png");
-                PackGraph.exportToJSON("PackagesJSON.txt");
-                PackGraph.exportToCSV("PackagesCSV.txt");
+                PackGraph.exportToJSON("PackagesJSON.json");
+                PackGraph.exportToCSV("PackagesCSV.csv");
             } catch (org.jgrapht.io.ExportException | IOException e) {
                 e.printStackTrace();
             }
