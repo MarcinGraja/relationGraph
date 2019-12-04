@@ -24,7 +24,7 @@ public class Main {
             classGraph.build(ClassFinder.getDependencies(files));//dasdasd
             classGraph.makePrintable();
             try {
-                classGraph.exportToPNG("Classes");
+                classGraph.exportToPNG("Classes.png");
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -33,17 +33,27 @@ public class Main {
             } catch (org.jgrapht.io.ExportException | IOException e) {
                 e.printStackTrace();
             }
+            try {
+                classGraph.exportToCSV("ClassesCSV.txt");
+            } catch (org.jgrapht.io.ExportException | IOException e) {
+                e.printStackTrace();
+            }
         }
         GraphHandler methodGraph = new GraphHandler();
         methodGraph.build(finder.getDependencies());
         methodGraph.makePrintable();
         try {
-            methodGraph.exportToPNG("Methods");
+            methodGraph.exportToPNG("Methods.png");
         } catch (IOException e) {
             e.printStackTrace();
         }
         try {
             methodGraph.exportToJSON("MethodsJSON.txt");
+        } catch (org.jgrapht.io.ExportException | IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            methodGraph.exportToCSV("MethodsCSV.txt");
         } catch (org.jgrapht.io.ExportException | IOException e) {
             e.printStackTrace();
         }
@@ -59,7 +69,7 @@ public class Main {
             PackGraph.build(PackageFinder.ClassDependency(files1));
             PackGraph.makePrintable();
             try {
-                 PackGraph.exportToPNG("Packages");
+                 PackGraph.exportToPNG("Packages.png");
             } catch (IOException e) {
                 e.printStackTrace();
             }

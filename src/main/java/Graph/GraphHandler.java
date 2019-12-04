@@ -17,6 +17,7 @@ import java.io.*;
 import java.util.List;
 import java.util.Set;
 
+import org.jgrapht.io.CSVExporter;
 import org.jgrapht.io.JSONExporter;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -65,6 +66,23 @@ public class GraphHandler {
 
     public void exportToJSON(String filename) throws org.jgrapht.io.ExportException, IOException {
         JSONExporter<GraphNode, GraphEdge> exporter = new JSONExporter<>();
+        Writer writer = new StringWriter();
+        exporter.exportGraph(resultGraph, writer);
+        String text = writer.toString();
+
+        File dir = new File(RESOURCES_PATH);
+        if (!dir.exists()) {
+            dir.mkdirs();
+        }
+
+        FileOutputStream outputStream = new FileOutputStream(RESOURCES_PATH + filename);
+        byte[] textB = text.getBytes();
+        outputStream.write(textB);
+        outputStream.close();
+    }
+
+    public void exportToCSV(String filename) throws org.jgrapht.io.ExportException, IOException {
+        CSVExporter<GraphNode, GraphEdge> exporter = new CSVExporter<>();
         Writer writer = new StringWriter();
         exporter.exportGraph(resultGraph, writer);
         String text = writer.toString();

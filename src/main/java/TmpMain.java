@@ -18,14 +18,19 @@ public class TmpMain {
 
         methodGraph.build(edges);
         methodGraph.makePrintable();
+        try {
+            methodGraph.exportToPNG("test.png");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
 //        try {
-//            methodGraph.exportToPNG("test.png");
-//        } catch (IOException e) {
+//            methodGraph.exportToJSON("testJSON.txt");
+//        } catch (org.jgrapht.io.ExportException | IOException e) {
 //            e.printStackTrace();
 //        }
-
         try {
-            methodGraph.exportToJSON("testJSON.txt");
+            methodGraph.exportToCSV("testCSV.txt");
         } catch (org.jgrapht.io.ExportException | IOException e) {
             e.printStackTrace();
         }
