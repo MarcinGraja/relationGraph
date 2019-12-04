@@ -28,6 +28,11 @@ public class Main {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            try {
+                classGraph.exportToJSON("ClassesJSON.txt");
+            } catch (org.jgrapht.io.ExportException | IOException e) {
+                e.printStackTrace();
+            }
         }
         GraphHandler methodGraph = new GraphHandler();
         methodGraph.build(finder.getDependencies());
@@ -35,6 +40,11 @@ public class Main {
         try {
             methodGraph.exportToPNG("Methods");
         } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            methodGraph.exportToJSON("MethodsJSON.txt");
+        } catch (org.jgrapht.io.ExportException | IOException e) {
             e.printStackTrace();
         }
         JFileChooser chose1 = new JFileChooser();
