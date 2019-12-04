@@ -10,13 +10,13 @@ import java.io.IOException;
 public class Main {
 
     public static void main(String[] args) {
-        JFileChooser chose = new JFileChooser(); //dfsaf
+        JFileChooser chose = new JFileChooser(); 
         chose.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
         chose.setMultiSelectionEnabled(true);
         chose.setCurrentDirectory(new File(System.getProperty("user.dir")));
         int r = chose.showOpenDialog(null);
         File[] files;
-        MethodCallFinder finder= new MethodCallFinder();
+        MethodCallFinder finder = new MethodCallFinder();
         if (r == JFileChooser.APPROVE_OPTION) {
             files = chose.getSelectedFiles();
             finder.setBuilder(files);
@@ -25,15 +25,7 @@ public class Main {
             classGraph.makePrintable();
             try {
                 classGraph.exportToPNG("Classes.png");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            try {
                 classGraph.exportToJSON("ClassesJSON.txt");
-            } catch (org.jgrapht.io.ExportException | IOException e) {
-                e.printStackTrace();
-            }
-            try {
                 classGraph.exportToCSV("ClassesCSV.txt");
             } catch (org.jgrapht.io.ExportException | IOException e) {
                 e.printStackTrace();
@@ -44,15 +36,7 @@ public class Main {
         methodGraph.makePrintable();
         try {
             methodGraph.exportToPNG("Methods.png");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try {
             methodGraph.exportToJSON("MethodsJSON.txt");
-        } catch (org.jgrapht.io.ExportException | IOException e) {
-            e.printStackTrace();
-        }
-        try {
             methodGraph.exportToCSV("MethodsCSV.txt");
         } catch (org.jgrapht.io.ExportException | IOException e) {
             e.printStackTrace();
@@ -69,8 +53,10 @@ public class Main {
             PackGraph.build(PackageFinder.ClassDependency(files1));
             PackGraph.makePrintable();
             try {
-                 PackGraph.exportToPNG("Packages.png");
-            } catch (IOException e) {
+                PackGraph.exportToPNG("Packages.png");
+                PackGraph.exportToJSON("PackagesJSON.txt");
+                PackGraph.exportToCSV("PackagesCSV.txt");
+            } catch (org.jgrapht.io.ExportException | IOException e) {
                 e.printStackTrace();
             }
         }
