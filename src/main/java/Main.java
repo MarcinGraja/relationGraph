@@ -26,8 +26,9 @@ public class Main {
             classGraph.makePrintable();
             try {
                 classGraph.exportToPNG("Classes.png");
-                classGraph.exportToJSON("ClassesJSON.json");
-                classGraph.exportToCSV("ClassesCSV.csv");
+//                classGraph.exportToJSON("ClassesJSON.json");
+//                classGraph.exportToCSV("ClassesCSV.csv");
+                classGraph.exportToGraphML("Classes.xml");
             } catch (org.jgrapht.io.ExportException | IOException e) {
                 e.printStackTrace();
             }
@@ -37,8 +38,9 @@ public class Main {
         methodGraph.makePrintable();
         try {
             methodGraph.exportToPNG("Methods.png");
-            methodGraph.exportToJSON("MethodsJSON.json");
-            methodGraph.exportToCSV("MethodsCSV.csv");
+//            methodGraph.exportToJSON("MethodsJSON.json");
+//            methodGraph.exportToCSV("MethodsCSV.csv");
+            methodGraph.exportToGraphML("Methods.xml");
         } catch (org.jgrapht.io.ExportException | IOException e) {
             e.printStackTrace();
         }
@@ -55,8 +57,9 @@ public class Main {
             PackGraph.makePrintable();
             try {
                 PackGraph.exportToPNG("Packages.png");
-                PackGraph.exportToJSON("PackagesJSON.json");
-                PackGraph.exportToCSV("PackagesCSV.csv");
+//                PackGraph.exportToJSON("PackagesJSON.json");
+//                PackGraph.exportToCSV("PackagesCSV.csv");
+                PackGraph.exportToGraphML("Packages.xml");
             } catch (org.jgrapht.io.ExportException | IOException e) {
                 e.printStackTrace();
             }
@@ -74,6 +77,7 @@ public class Main {
             PackGraph.makePrintable();
             try {
                 PackGraph.exportToPNG("Files.png");
+
             } catch (IOException e) {
                 e.printStackTrace();
             }

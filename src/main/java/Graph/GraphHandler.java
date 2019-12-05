@@ -5,7 +5,6 @@ import com.mxgraph.layout.mxIGraphLayout;
 import com.mxgraph.util.mxCellRenderer;
 import org.jgrapht.Graph;
 import org.jgrapht.ext.DOTExporter;
-import org.jgrapht.ext.ExportException;
 import org.jgrapht.ext.GraphExporter;
 import org.jgrapht.ext.JGraphXAdapter;
 import org.jgrapht.graph.SimpleDirectedWeightedGraph;
@@ -14,11 +13,11 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.net.URI;
 import java.util.List;
 import java.util.Set;
 
-import org.jgrapht.io.CSVExporter;
-import org.jgrapht.io.JSONExporter;
+import org.jgrapht.io.*;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -50,6 +49,50 @@ public class GraphHandler {
         this.printableGraph = new JGraphXAdapter<>(this.resultGraph);
         mxIGraphLayout layout = new mxHierarchicalLayout(this.printableGraph);
         layout.execute(this.printableGraph.getDefaultParent());
+    }
+
+    public void exportToGraphML(String filename) throws ExportException, IOException {
+        ComponentNameProvider<GraphNode> vertexIdProvider = new ComponentNameProvider<>() {
+            @Override
+            public String getName(GraphNode graphNode) {
+                return graphNode.getName();
+            }
+        };
+        ComponentNameProvider<GraphNode> vertexLabelProvider = new ComponentNameProvider<>() {
+            @Override
+            public String getName(GraphNode graphNode) {
+                return graphNode.toString();
+            }
+        };
+        ComponentNameProvider<GraphEdge> edgeIdProvider = new ComponentNameProvider<>() {
+            @Override
+            public String getName(GraphEdge graphEdge) {
+                return String.valueOf(graphEdge.getWeight());
+            }
+        };
+        ComponentNameProvider<GraphEdge> edgeLabelProvider = new ComponentNameProvider<>() {
+            @Override
+            public String getName(GraphEdge graphEdge) {
+                return graphEdge.toString();
+            }
+        };
+
+        GraphMLExporter<GraphNode, GraphEdge> exporter = new GraphMLExporter<>(vertexIdProvider, vertexLabelProvider,
+                                                                            edgeIdProvider, edgeLabelProvider);
+
+        Writer writer = new StringWriter();
+        exporter.exportGraph(resultGraph, writer);
+        String text = writer.toString();
+
+        File dir = new File(RESOURCES_PATH);
+        if (!dir.exists()) {
+            dir.mkdirs();
+        }
+
+        FileOutputStream outputStream = new FileOutputStream(RESOURCES_PATH + filename);
+        byte[] textB = text.getBytes();
+        outputStream.write(textB);
+        outputStream.close();
     }
 
     public void exportToPNG(String fileName) throws IOException {
