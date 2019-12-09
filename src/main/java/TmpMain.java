@@ -1,10 +1,9 @@
 import Graph.GraphEdge;
 import Graph.GraphHandler;
 import Graph.GraphNode;
-import org.jgrapht.ext.ExportException;
 
 import java.io.IOException;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class TmpMain {
@@ -14,7 +13,7 @@ public class TmpMain {
         GraphNode n2 = new GraphNode("f2");
         GraphEdge edge = new GraphEdge(n1, n2, 5);
         //List<GraphNode> nodes = Arrays.asList(n1, n2);
-        List<GraphEdge> edges = Arrays.asList(edge);
+        List<GraphEdge> edges = Collections.singletonList(edge);
 
         methodGraph.build(edges);
         methodGraph.makePrintable();
@@ -23,17 +22,5 @@ public class TmpMain {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-//        try {
-//            methodGraph.exportToJSON("testJSON.txt");
-//        } catch (org.jgrapht.io.ExportException | IOException e) {
-//            e.printStackTrace();
-//        }
-        try {
-            methodGraph.exportToCSV("testCSV.txt");
-        } catch (org.jgrapht.io.ExportException | IOException e) {
-            e.printStackTrace();
-        }
-
     }
 }

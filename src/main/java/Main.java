@@ -22,12 +22,10 @@ public class Main {
             files = chose.getSelectedFiles();
             finder.setBuilder(files);
             GraphHandler classGraph = new GraphHandler();
-            classGraph.build(ClassFinder.getDependencies(files));//dasdasd
+            classGraph.build(ClassFinder.getDependencies(files));
             classGraph.makePrintable();
             try {
                 classGraph.exportToPNG("Classes.png");
-//                classGraph.exportToJSON("ClassesJSON.json");
-//                classGraph.exportToCSV("ClassesCSV.csv");
                 classGraph.exportToXML("Classes");
             } catch (IOException e) {
                 e.printStackTrace();
@@ -38,8 +36,6 @@ public class Main {
         methodGraph.makePrintable();
         try {
             methodGraph.exportToPNG("Methods.png");
-//            methodGraph.exportToJSON("MethodsJSON.json");
-//            methodGraph.exportToCSV("MethodsCSV.csv");
             methodGraph.exportToXML("Methods");
         } catch (IOException e) {
             e.printStackTrace();
@@ -57,8 +53,6 @@ public class Main {
             PackGraph.makePrintable();
             try {
                 PackGraph.exportToPNG("Packages.png");
-//                PackGraph.exportToJSON("PackagesJSON.json");
-//                PackGraph.exportToCSV("PackagesCSV.csv");
                 PackGraph.exportToXML("Packages");
             } catch (IOException e) {
                 e.printStackTrace();

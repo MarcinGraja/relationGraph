@@ -20,7 +20,7 @@ public class GraphEdge implements Printable, Serializable {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return Integer.toString(weight);
     }
 
@@ -28,24 +28,12 @@ public class GraphEdge implements Printable, Serializable {
         return source;
     }
 
-    public void setSource(GraphNode source) {
-        this.source = source;
-    }
-
     public GraphNode getTarget() {
         return target;
     }
 
-    public void setTarget(GraphNode target) {
-        this.target = target;
-    }
-
     public int getWeight() {
         return weight;
-    }
-
-    public void setWeight(int weight) {
-        this.weight = weight;
     }
 
 }

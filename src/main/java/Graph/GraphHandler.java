@@ -6,30 +6,25 @@ import com.mxgraph.util.mxCellRenderer;
 import org.jgrapht.Graph;
 import org.jgrapht.ext.JGraphXAdapter;
 import org.jgrapht.graph.SimpleDirectedWeightedGraph;
+import org.w3c.dom.Attr;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 import javax.imageio.ImageIO;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-
-import org.jgrapht.io.*;
-
-import java.io.File;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-
-import org.w3c.dom.Attr;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -69,62 +64,10 @@ public class GraphHandler {
         layout.execute(this.printableGraph.getDefaultParent());
     }
 
-    public void exportToGraphML(String filename) throws ExportException, IOException {
-        ComponentNameProvider<GraphNode> vertexIdProvider = new ComponentNameProvider<>() {
-            @Override
-            public String getName(GraphNode graphNode) {
-                return graphNode.getName();
-            }
-        };
-        ComponentNameProvider<GraphNode> vertexLabelProvider = new ComponentNameProvider<>() {
-            @Override
-            public String getName(GraphNode graphNode) {
-                return graphNode.toString();
-            }
-        };
-        ComponentNameProvider<GraphEdge> edgeIdProvider = new ComponentNameProvider<>() {
-            @Override
-            public String getName(GraphEdge graphEdge) {
-                return String.valueOf(graphEdge.getWeight());
-            }
-        };
-        ComponentNameProvider<GraphEdge> edgeLabelProvider = new ComponentNameProvider<>() {
-            @Override
-            public String getName(GraphEdge graphEdge) {
-                return graphEdge.toString();
-            }
-        };
-
-        GraphMLExporter<GraphNode, GraphEdge> exporter = new GraphMLExporter<>(vertexIdProvider, vertexLabelProvider,
-                edgeIdProvider, edgeLabelProvider);
-
-        Writer writer = new StringWriter();
-        exporter.exportGraph(resultGraph, writer);
-        String text = writer.toString();
-
-        File dir = new File(RESOURCES_PATH);
-        if (!dir.exists()) {
-            dir.mkdirs();
-        }
-
-        FileOutputStream outputStream = new FileOutputStream(RESOURCES_PATH + filename);
-        byte[] textB = text.getBytes();
-        outputStream.write(textB);
-        outputStream.close();
-    }
-
-    public void exportToXML(String fileName) throws FileNotFoundException {
-//        File dir = new File(RESOURCES_PATH);
-//        if (!dir.exists()) {
-//            dir.mkdirs();
-//        }
-//        FileOutputStream outputStream = new FileOutputStream(RESOURCES_PATH + fileName);
-//
-//        outputStream.write();
-        ArrayList<Element> nodeElements = new ArrayList<>();
-        ArrayList<Element> usageElements = new ArrayList<>();
+    public void exportToXML(String fileName) {
 
         try {
+            //Document
             DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
 
@@ -173,8 +116,10 @@ public class GraphHandler {
 
                 models.appendChild(element);
             }
-            int j=5000;
-            for (GraphEdge edge : edges){
+
+            //Edges
+            int j = 5000;
+            for (GraphEdge edge : edges) {
                 Element element = doc.createElement("Usage");
 
                 Attr attr_Id = doc.createAttribute("Id");
@@ -198,11 +143,10 @@ public class GraphHandler {
             DOMSource source = new DOMSource(doc);
             StreamResult result = new StreamResult(new File(RESOURCES_PATH + fileName + ".xml"));
             transformer.transform(source, result);
+
         } catch (ParserConfigurationException | TransformerException e) {
             e.printStackTrace();
         }
-
-
     }
 
     public void exportToPNG(String fileName) throws IOException {
@@ -215,51 +159,5 @@ public class GraphHandler {
         imageFile.createNewFile();
         ImageIO.write(image, "PNG", imageFile);
         assertTrue(imageFile.exists());
-    }
-
-    public void exportToJSON(String filename) throws org.jgrapht.io.ExportException, IOException {
-        JSONExporter<GraphNode, GraphEdge> exporter = new JSONExporter<>();
-        Writer writer = new StringWriter();
-        exporter.exportGraph(resultGraph, writer);
-        String text = writer.toString();
-
-        File dir = new File(RESOURCES_PATH);
-        if (!dir.exists()) {
-            dir.mkdirs();
-        }
-
-        FileOutputStream outputStream = new FileOutputStream(RESOURCES_PATH + filename);
-        byte[] textB = text.getBytes();
-        outputStream.write(textB);
-        outputStream.close();
-    }
-
-    public void exportToCSV(String filename) throws org.jgrapht.io.ExportException, IOException {
-        CSVExporter<GraphNode, GraphEdge> exporter = new CSVExporter<>();
-        Writer writer = new StringWriter();
-        exporter.exportGraph(resultGraph, writer);
-        String text = writer.toString();
-
-        File dir = new File(RESOURCES_PATH);
-        if (!dir.exists()) {
-            dir.mkdirs();
-        }
-
-        FileOutputStream outputStream = new FileOutputStream(RESOURCES_PATH + filename);
-        byte[] textB = text.getBytes();
-        outputStream.write(textB);
-        outputStream.close();
-    }
-
-    public Set<GraphEdge> getEdges() {
-        return resultGraph.edgeSet();
-    }
-
-    public Set<GraphNode> getNodes() {
-        return resultGraph.vertexSet();
-    }//ffggfg
-
-    public Graph<GraphNode, GraphEdge> getResultGraph() {
-        return resultGraph;
     }
 }
