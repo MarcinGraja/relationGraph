@@ -28,8 +28,8 @@ public class Main {
                 classGraph.exportToPNG("Classes.png");
 //                classGraph.exportToJSON("ClassesJSON.json");
 //                classGraph.exportToCSV("ClassesCSV.csv");
-                classGraph.exportToGraphML("Classes.xml");
-            } catch (org.jgrapht.io.ExportException | IOException e) {
+                classGraph.exportToXML("Classes");
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }
@@ -40,8 +40,8 @@ public class Main {
             methodGraph.exportToPNG("Methods.png");
 //            methodGraph.exportToJSON("MethodsJSON.json");
 //            methodGraph.exportToCSV("MethodsCSV.csv");
-            methodGraph.exportToGraphML("Methods.xml");
-        } catch (org.jgrapht.io.ExportException | IOException e) {
+            methodGraph.exportToXML("Methods");
+        } catch (IOException e) {
             e.printStackTrace();
         }
         JFileChooser chose1 = new JFileChooser();
@@ -59,8 +59,8 @@ public class Main {
                 PackGraph.exportToPNG("Packages.png");
 //                PackGraph.exportToJSON("PackagesJSON.json");
 //                PackGraph.exportToCSV("PackagesCSV.csv");
-                PackGraph.exportToGraphML("Packages.xml");
-            } catch (org.jgrapht.io.ExportException | IOException e) {
+                PackGraph.exportToXML("Packages");
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }
