@@ -23,7 +23,7 @@ public class ClassFinder {
         }
         return tmp;
     }
-    public static GraphEdge ClassDependency(File source, File target)
+    public static GraphEdge classDependency(File source, File target)
     {
         int counter=0;
         JavaProjectBuilder builder=new JavaProjectBuilder();
@@ -33,21 +33,17 @@ public class ClassFinder {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        LinkedList<String> tmp=new LinkedList<>();
-        for(int i=0;i<src.getClasses().size();i++)
-        {
-            tmp.add(src.getClasses().get(i).getName());
+        LinkedList<String> classes=new LinkedList<>();
+        for(int i=0;i<src.getClasses().size();i++) {
+            classes.add(src.getClasses().get(i).getName());
         }
         try {
             Scanner scanner=new Scanner(target);
-            while(scanner.hasNext())
-            {
-                for(String a:tmp)
-                {
+            while(scanner.hasNext()) {
+                for(String a:classes) {
                     if(scanner.nextLine().contains(a))
                         counter++;
                 }
-
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -62,7 +58,7 @@ public class ClassFinder {
             {
                 if(a!=b)
                 {
-                    tmp.add(ClassDependency(a,b));
+                    tmp.add(classDependency(a,b));
                 }
             }
         }

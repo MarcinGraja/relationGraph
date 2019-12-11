@@ -1,6 +1,7 @@
 package Graph;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class GraphEdge implements Printable, Serializable {
     private GraphNode source;    // Node from which connection was found
@@ -36,4 +37,13 @@ public class GraphEdge implements Printable, Serializable {
         return weight;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        GraphEdge graphEdge = (GraphEdge) o;
+        return getWeight() == graphEdge.getWeight() &&
+                getSource().equals(graphEdge.getSource()) &&
+                getTarget().equals(graphEdge.getTarget());
+    }
 }

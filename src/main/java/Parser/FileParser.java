@@ -24,8 +24,7 @@ public class FileParser {
             e.printStackTrace();
         }
         LinkedList<String> classes=new LinkedList<>();
-        for(int i=0;i<src.getClasses().size();i++)
-        {
+        for(int i=0;i<src.getClasses().size();i++) {
             classes.add(src.getClasses().get(i).getName());
         }
         ArrayList<JavaMethod> methodsJava= new ArrayList<>();
