@@ -8,8 +8,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
 final class GraphEdgeTests {
-    GraphNode gn1;
-    GraphNode gn2;
+    GraphNode source;
+    GraphNode target;
     GraphEdge graphEdge;
 
     private ByteArrayOutputStream outContent;
@@ -20,9 +20,9 @@ final class GraphEdgeTests {
 
     @BeforeEach
     public void setUp() {
-        gn1 = new GraphNode("1");
-        gn2 = new GraphNode("2");
-        graphEdge = new GraphEdge(gn1, gn2, 2);
+        source = new GraphNode("1");
+        target = new GraphNode("2");
+        graphEdge = new GraphEdge(source, target, 2);
 
         outContent = new ByteArrayOutputStream();
         errContent = new ByteArrayOutputStream();
@@ -32,7 +32,7 @@ final class GraphEdgeTests {
     }
 
     @Test
-    public void print_graphEdge(){
+    public void print_graphEdge() {
         graphEdge.print();
         assert outContent.toString().equals("1 --2-> 2\r\n") : "System.out.printl doesnt work. lol...";
     }
@@ -46,10 +46,37 @@ final class GraphEdgeTests {
         assert expected.equals(actual) : "GraphNode -> toString() doesn't work";
     }
 
+    @Test
+    public void getSource_return1() {
+        GraphNode expected = source;
+
+        GraphNode actual = graphEdge.getSource();
+
+        assert expected == actual : "GraphEdge -> getSource() doesn't work";
+    }
+
+    @Test
+    public void getTarget_return2() {
+        GraphNode expected = target;
+
+        GraphNode actual = graphEdge.getTarget();
+
+        assert expected == actual : "GraphEdge -> getTarget() doesn't work";
+    }
+
+    @Test
+    public void getWeight_return2() {
+        int expected = 2;
+
+        int actual = graphEdge.getWeight();
+
+        assert actual == expected;
+    }
+
     @AfterEach
     public void teardown() {
-        gn1 = null;
-        gn2 = null;
+        source = null;
+        target = null;
         graphEdge = null;
 
         outContent = null;
