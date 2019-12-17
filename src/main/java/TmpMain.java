@@ -36,6 +36,6 @@ public class TmpMain {
 
         GraphHandler graphHandler=new GraphHandler();
         graphHandler.build(edges);
-        graphHandler.serializeResultGraph();
+        //graphHandler.serializeResultGraph();
     }
 }
