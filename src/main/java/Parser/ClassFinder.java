@@ -50,7 +50,7 @@ public class ClassFinder {
         }
         return new GraphEdge(new GraphNode(source.getName()),new GraphNode(target.getName()),counter);
     }
-    public static ArrayList<GraphEdge> getDependencies(File[] files){
+    public static ArrayList<GraphEdge> getDependencies(LinkedList<File> files){
         ArrayList<GraphEdge> tmp = new ArrayList<>();
         for(File a:files)
         {

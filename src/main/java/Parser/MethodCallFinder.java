@@ -9,12 +9,13 @@ import com.thoughtworks.qdox.model.JavaMethod;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class MethodCallFinder {
     private JavaProjectBuilder builder;
-    public void setBuilder(File[] directories){
+    public void setBuilder(LinkedList<File> directories){
         builder = new JavaProjectBuilder();
         for (File file: directories){
             builder.addSourceTree(file);
@@ -34,11 +35,11 @@ public class MethodCallFinder {
         for(JavaMethod method: methods){
             methodNames.add(method.getCallSignature());
         }
-        System.err.println(methods.get(0).getDeclarationSignature(true));
-        System.err.println(methods.get(0).getDeclarationSignature(false));
-        System.err.println(methods.get(0).getCallSignature());
-        System.err.println(methods.get(0).getTags());
-        System.err.println(methods.get(0).getDeclaringClass());
+        //System.err.println(methods.get(0).getDeclarationSignature(true));
+        //System.err.println(methods.get(0).getDeclarationSignature(false));
+        //System.err.println(methods.get(0).getCallSignature());
+        //System.err.println(methods.get(0).getTags());
+       // System.err.println(methods.get(0).getDeclaringClass());
         for (JavaMethod method: methods){
             map.put(method.getCallSignature().replaceFirst("\\(.*\\)","()"), new HashMap<>());
             for (String s: methodNames){

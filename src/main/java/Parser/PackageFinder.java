@@ -45,34 +45,47 @@ public class PackageFinder
         }
         return counter;
     }
-     public static ArrayList<GraphEdge> ClassDependency(File[] dirs)
+     public static ArrayList<GraphEdge> ClassDependency(LinkedList<File> files)
     {
         ArrayList<GraphEdge> tmp=new ArrayList<>();
 
-        for(File a:dirs)
+        for(File a:files)
         {
-            for(File b:dirs)
+            for(File b:files)
             {
-                if(a!=b)
-                {   int counter=0;
-                    LinkedList<File> pliki1=new LinkedList<>();
-                    for(File c:a.listFiles())
+                JavaProjectBuilder builder=new JavaProjectBuilder();
+                JavaSource src= null;
+                try {
+                    src = builder.addSource(a);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                JavaProjectBuilder builder2=new JavaProjectBuilder();
+                JavaSource src2= null;
+                try {
+                    src2 = builder.addSource(b);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                if(!src.getPackageName().equals(src2.getPackageName()))
+                {
+                    int counter=PackageDep(a,b);
+                    //System.out.println(src.getPackageName()+" "+counter+" "+src2.getPackageName());
+                    boolean s=true;
+                    for(GraphEdge c:tmp)
                     {
-                        pliki1.add(c);
-                    }
-                    LinkedList<File> pliki2=new LinkedList<>();
-                    for(File c:b.listFiles())
-                    {
-                        pliki2.add(c);
-                    }
-                    for(File c:pliki1)
-                    {
-                        for(File d:pliki2)
+                        if(c.getSource().getName().equals(src.getPackageName()) && c.getTarget().getName().equals(src2.getPackageName()))
                         {
-                        counter+=PackageDep(c,d);
+                            int t=c.getWeight();
+                            c.setWeight(counter+t);
+                            s=false;
                         }
+
                     }
-                    tmp.add(new GraphEdge(new GraphNode(a.getName()),new GraphNode(b.getName()),counter));
+                    if(s) {
+                        tmp.add(new GraphEdge(new GraphNode(src.getPackageName()), new GraphNode(src2.getPackageName()), counter));
+
+                    }
                 }
             }
         }

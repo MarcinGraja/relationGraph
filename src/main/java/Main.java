@@ -1,18 +1,18 @@
+import Graph.GraphEdge;
 import Graph.GraphHandler;
-import Parser.ClassFinder;
-import Parser.FileParser;
-import Parser.MethodCallFinder;
-import Parser.PackageFinder;
+import Parser.*;
 
 import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
+import java.util.LinkedList;
+import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) {
         JFileChooser chose = new JFileChooser();
-        chose.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+        chose.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         chose.setMultiSelectionEnabled(true);
         chose.setCurrentDirectory(new File(System.getProperty("user.dir")));
         int r = chose.showOpenDialog(null);
@@ -20,62 +20,76 @@ public class Main {
         MethodCallFinder finder = new MethodCallFinder();
         if (r == JFileChooser.APPROVE_OPTION) {
             files = chose.getSelectedFiles();
-            finder.setBuilder(files);
+            LinkedList<File> filesall=new LinkedList<>();
+            for(File a: files)
+            {
+                if(a.isDirectory())
+                {
+                    for(File b:a.listFiles())
+                        filesall.add(b);
+                }
+                else
+                {
+                    filesall.add(a);
+                }
+            }
+            finder.setBuilder(filesall);
             GraphHandler classGraph = new GraphHandler();
-            classGraph.build(ClassFinder.getDependencies(files));
+            classGraph.build(ClassFinder.getDependencies(filesall));
             classGraph.makePrintable();
+            GraphHandler methodGraph = new GraphHandler();
+            methodGraph.build(finder.getDependencies());
+            methodGraph.makePrintable();
+            GraphHandler PackGraph = new GraphHandler();
+            PackGraph.build(PackageFinder.ClassDependency(filesall));
+            PackGraph.makePrintable();
+            GraphHandler FilestoMethodsGraph = new GraphHandler();
+            FilestoMethodsGraph.build(FilesToMethods.FilesMethods(filesall));
+            FilestoMethodsGraph.makePrintable();
+            GraphHandler PackagesMethodsGraph = new GraphHandler();
+            PackagesMethodsGraph.build(PackagesToMethods.PackagesMethods(filesall));
+            PackagesMethodsGraph.makePrintable();
+            GraphHandler MethodsToMethodsGraph = new GraphHandler();
+            MethodsToMethodsGraph.build(MethodsToMethods.ListMethods(filesall));
+            MethodsToMethodsGraph.makePrintable();
+            GraphHandler PackGraph2 = new GraphHandler();
+            PackGraph2.build(FileParser.FileDep(filesall));
+            PackGraph2.makePrintable();
+            GraphHandler AllTogether=new GraphHandler();
+            LinkedList<GraphEdge> all=new LinkedList<>();
+            System.out.println("Do you want Files To Methods on graph? (y/n): ");
+            Scanner scanner=new Scanner(System.in);
+            if(scanner.nextLine().equals("y")) {
+                all.addAll(FilesToMethods.FilesMethods(filesall));
+            }
+            System.out.println("Do you want Packages To Methods on graph? (y/n): ");
+            if(scanner.nextLine().equals("y")) {
+                all.addAll(PackagesToMethods.PackagesMethods(filesall));
+            }
+            System.out.println("Do you want Methods To Methods on graph? (y/n): ");
+            if(scanner.nextLine().equals("y"))
+            {
+                all.addAll(MethodsToMethods.ListMethods(filesall));
+            }
+            AllTogether.build(all);
+            AllTogether.makePrintable();
             try {
                 classGraph.exportToPNG("Classes.png");
                 classGraph.exportToXML("Classes");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        GraphHandler methodGraph = new GraphHandler();
-        methodGraph.build(finder.getDependencies());
-        methodGraph.makePrintable();
-        try {
-            methodGraph.exportToPNG("Methods.png");
-            methodGraph.exportToXML("Methods");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        JFileChooser chose1 = new JFileChooser();
-        chose1.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-        chose1.setMultiSelectionEnabled(true);
-        chose1.setCurrentDirectory(new File(System.getProperty("user.dir")));
-        int r1 = chose1.showOpenDialog(null);
-        File[] files1;
-        if (r1 == JFileChooser.APPROVE_OPTION) {
-            files1 = chose1.getSelectedFiles();
-            GraphHandler PackGraph = new GraphHandler();
-            PackGraph.build(PackageFinder.ClassDependency(files1));
-            PackGraph.makePrintable();
-            try {
+                methodGraph.exportToPNG("Methods.png");
+                methodGraph.exportToXML("Methods");
                 PackGraph.exportToPNG("Packages.png");
                 PackGraph.exportToXML("Packages");
+                FilestoMethodsGraph.exportToPNG("FilesMethods.png");
+                PackagesMethodsGraph.exportToPNG("PackagesToMethods.png");
+                MethodsToMethodsGraph.exportToPNG("MethodsToMethods.png");
+                AllTogether.exportToPNG("All.png");
+                PackGraph2.exportToPNG("Files.png");
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-        JFileChooser chose2 = new JFileChooser();
-        chose2.setFileSelectionMode(JFileChooser.FILES_ONLY);
-        chose2.setMultiSelectionEnabled(true);
-        chose2.setCurrentDirectory(new File(System.getProperty("user.dir")));
-        int r2 = chose2.showOpenDialog(null);
-        File[] files2;
-        if (r2 == JFileChooser.APPROVE_OPTION) {
-            files2 = chose2.getSelectedFiles();
-            GraphHandler PackGraph = new GraphHandler();
-            PackGraph.build(FileParser.FileDep(files2));
-            PackGraph.makePrintable();
-            try {
-                PackGraph.exportToPNG("Files.png");
 
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
 
     }
 }

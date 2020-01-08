@@ -1,7 +1,6 @@
 package Graph;
 
 import java.io.Serializable;
-import java.util.Objects;
 
 public class GraphEdge implements Printable, Serializable {
     private GraphNode source;    // Node from which connection was found
@@ -35,6 +34,9 @@ public class GraphEdge implements Printable, Serializable {
 
     public int getWeight() {
         return weight;
+    }
+    public void setWeight(int a){
+        weight=a;
     }
 
     @Override
