@@ -47,7 +47,7 @@ public class FileParser {
         }
         return tmp;
     }
-    public static ArrayList<GraphEdge> FileDep(LinkedList<File> files)
+    public static ArrayList<GraphEdge> FileDep(File[] files)
     {
         ArrayList<GraphEdge> tmp=new ArrayList<>();
         for(File f : files) {

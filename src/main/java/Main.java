@@ -41,7 +41,7 @@ public class Main {
             methodGraph.build(finder.getDependencies());
             methodGraph.makePrintable();
             GraphHandler PackGraph = new GraphHandler();
-            PackGraph.build(PackageFinder.ClassDependency(filesall));
+            //PackGraph.build(PackageFinder.ClassDependency(filesall));
             PackGraph.makePrintable();
             GraphHandler FilestoMethodsGraph = new GraphHandler();
             FilestoMethodsGraph.build(FilesToMethods.FilesMethods(filesall));
@@ -53,7 +53,7 @@ public class Main {
             MethodsToMethodsGraph.build(MethodsToMethods.ListMethods(filesall));
             MethodsToMethodsGraph.makePrintable();
             GraphHandler PackGraph2 = new GraphHandler();
-            PackGraph2.build(FileParser.FileDep(filesall));
+          //  PackGraph2.build(FileParser.FileDep(filesall));
             PackGraph2.makePrintable();
             GraphHandler AllTogether=new GraphHandler();
             LinkedList<GraphEdge> all=new LinkedList<>();
