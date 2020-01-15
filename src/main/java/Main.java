@@ -20,16 +20,12 @@ public class Main {
         MethodCallFinder finder = new MethodCallFinder();
         if (r == JFileChooser.APPROVE_OPTION) {
             files = chose.getSelectedFiles();
-            LinkedList<File> filesall=new LinkedList<>();
-            for(File a: files)
-            {
-                if(a.isDirectory())
-                {
-                    for(File b:a.listFiles())
+            LinkedList<File> filesall = new LinkedList<>();
+            for (File a : files) {
+                if (a.isDirectory()) {
+                    for (File b : a.listFiles())
                         filesall.add(b);
-                }
-                else
-                {
+                } else {
                     filesall.add(a);
                 }
             }
@@ -41,7 +37,7 @@ public class Main {
             methodGraph.build(finder.getDependencies());
             methodGraph.makePrintable();
             GraphHandler PackGraph = new GraphHandler();
-            //PackGraph.build(PackageFinder.ClassDependency(filesall));
+            PackGraph.build(PackageFinder.ClassDependency(filesall));
             PackGraph.makePrintable();
             GraphHandler FilestoMethodsGraph = new GraphHandler();
             FilestoMethodsGraph.build(FilesToMethods.FilesMethods(filesall));
@@ -53,43 +49,47 @@ public class Main {
             MethodsToMethodsGraph.build(MethodsToMethods.ListMethods(filesall));
             MethodsToMethodsGraph.makePrintable();
             GraphHandler PackGraph2 = new GraphHandler();
-          //  PackGraph2.build(FileParser.FileDep(filesall));
+              PackGraph2.build(FileParser.FileDep(filesall));
             PackGraph2.makePrintable();
-            GraphHandler AllTogether=new GraphHandler();
-            LinkedList<GraphEdge> all=new LinkedList<>();
+            GraphHandler AllTogether = new GraphHandler();
+            LinkedList<GraphEdge> all = new LinkedList<>();
             System.out.println("Do you want Files To Methods on graph? (y/n): ");
-            Scanner scanner=new Scanner(System.in);
-            if(scanner.nextLine().equals("y")) {
+            Scanner scanner = new Scanner(System.in);
+            if (scanner.nextLine().equals("y")) {
                 all.addAll(FilesToMethods.FilesMethods(filesall));
             }
             System.out.println("Do you want Packages To Methods on graph? (y/n): ");
-            if(scanner.nextLine().equals("y")) {
+            if (scanner.nextLine().equals("y")) {
                 all.addAll(PackagesToMethods.PackagesMethods(filesall));
             }
             System.out.println("Do you want Methods To Methods on graph? (y/n): ");
-            if(scanner.nextLine().equals("y"))
-            {
+            if (scanner.nextLine().equals("y")) {
                 all.addAll(MethodsToMethods.ListMethods(filesall));
             }
-            AllTogether.build(all);
-            AllTogether.makePrintable();
-            try {
-                classGraph.exportToPNG("Classes.png");
-                classGraph.exportToXML("Classes");
-                methodGraph.exportToPNG("Methods.png");
-                methodGraph.exportToXML("Methods");
-                PackGraph.exportToPNG("Packages.png");
-                PackGraph.exportToXML("Packages");
-                FilestoMethodsGraph.exportToPNG("FilesMethods.png");
-                PackagesMethodsGraph.exportToPNG("PackagesToMethods.png");
-                MethodsToMethodsGraph.exportToPNG("MethodsToMethods.png");
+            if(all.size()>0) {
+                AllTogether.build(all);
+                AllTogether.makePrintable();
+            }else{
+                System.out.println("You can not create a graph without edges");
+            }
+                try {
+                    classGraph.exportToPNG("Classes.png");
+                    classGraph.exportToXML("Classes");
+                    methodGraph.exportToPNG("Methods.png");
+                    methodGraph.exportToXML("Methods");
+                    PackGraph.exportToPNG("Packages.png");
+                    PackGraph.exportToXML("Packages");
+                    FilestoMethodsGraph.exportToPNG("FilesMethods.png");
+                    PackagesMethodsGraph.exportToPNG("PackagesToMethods.png");
+                    MethodsToMethodsGraph.exportToPNG("MethodsToMethods.png");
+            if(all.size()>0) {
                 AllTogether.exportToPNG("All.png");
-                PackGraph2.exportToPNG("Files.png");
-            } catch (IOException e) {
-                e.printStackTrace();
+            }
+                    PackGraph2.exportToPNG("Files.png");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
 
-
     }
-}
