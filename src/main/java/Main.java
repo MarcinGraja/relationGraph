@@ -11,6 +11,7 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
+        System.out.println(GitHandler.getVersion());
         JFileChooser chose = new JFileChooser();
         chose.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         chose.setMultiSelectionEnabled(true);
